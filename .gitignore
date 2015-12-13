@@ -1,2 +1,40 @@
-.DS_Store
+# Symfony
+/app/bootstrap.php.cache
+/app/cache/*
+!app/cache/.gitkeep
+/app/config/parameters.yml
+/app/logs/*
+!app/logs/.gitkeep
+/app/phpunit.xml
+/bin/
+/web/bundles/
+/web/css/
+/web/js/
+/web/images/
+/web/fonts/
+
+# IntellJ
+.idea
+
+# NPM
+npm-debug.log
+node_modules
+.npm
+
+# Vagrant
 .vagrant
+
+# Composer
+/composer.phar
+/vendor/
+
+# Java
+*.class
+.mtj.tmp/
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# Maven
+/target/
