@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Check vagrant version
+Vagrant.require_version ">= 1.8.0"
+
 Vagrant.configure(2) do |config|
 
   boxes = [
@@ -41,6 +44,7 @@ Vagrant.configure(2) do |config|
         v.customize ["modifyvm", :id, "--memory", 2048]
         v.customize ["modifyvm", :id, "--cpus", 2]
         v.gui = true
+        v.linked_clone = true
       end
 
       # Disable shared folder
