@@ -5,6 +5,14 @@ Vagrant.configure(2) do |config|
 
   boxes = [
     {
+      :name => "ie8",
+      :box => "modernIE/w7-ie8"
+    },
+    {
+      :name => "ie9",
+      :box => "modernIE/w7-ie9"
+    },
+    {
       :name => "ie10",
       :box => "modernIE/w8-ie10"
     },
