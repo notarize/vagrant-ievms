@@ -1,3 +1,5 @@
+![unmaintained](http://img.shields.io/badge/status-unmaintained-red.png)
+
 # modern.IE VMs with Vagrant and Virtual Box
 ## How to use
 
