@@ -2,37 +2,35 @@
 # vi: set ft=ruby :
 
 # Check vagrant version
-Vagrant.require_version ">= 1.8.0"
+Vagrant.require_version '>= 1.8.0'
 
 Vagrant.configure(2) do |config|
-
   boxes = [
     {
-      :name => "ie8",
-      :box => "modernIE/w7-ie8"
+      name: 'ie8',
+      box: 'modernIE/w7-ie8'
     },
     {
-      :name => "ie9",
-      :box => "modernIE/w7-ie9"
+      name: 'ie9',
+      box: 'modernIE/w7-ie9'
     },
     {
-      :name => "ie10",
-      :box => "modernIE/w8-ie10"
+      name: 'ie10',
+      box: 'modernIE/w8-ie10'
     },
     {
-      :name => "ie11",
-      :box => "modernIE/w8.1-ie11"
+      name: 'ie11',
+      box: 'modernIE/w8.1-ie11'
     },
     {
-      :name => "edge",
-      :box => "modernIE/w10-edge"
+      name: 'edge',
+      box: 'modernIE/w10-edge'
     }
   ]
 
   # Configure VM's
   boxes.each do |opts|
     config.vm.define opts[:name], autostart: false do |config|
-
       # Set hostname
       config.vm.hostname = opts[:name]
 
@@ -40,25 +38,25 @@ Vagrant.configure(2) do |config|
       config.vm.box = opts[:box]
 
       # Set virtualbox settings
-      config.vm.provider "virtualbox" do |v|
-        v.customize ["modifyvm", :id, "--memory", 2048]
-        v.customize ["modifyvm", :id, "--cpus", 2]
+      config.vm.provider 'virtualbox' do |v|
+        v.customize ['modifyvm', :id, '--memory', 2048]
+        v.customize ['modifyvm', :id, '--cpus', 2]
         v.gui = true
         v.linked_clone = true
       end
 
       # Disable shared folder
-      config.vm.synced_folder ".", "/vagrant", disabled: true
+      config.vm.synced_folder '.', '/vagrant', disabled: true
 
       # Add private network
-      if Vagrant.has_plugin?("vagrant-auto_network")
-        config.vm.network :private_network, :ip => "0.0.0.0", :auto_network => true
+      if Vagrant.has_plugin?('vagrant-auto_network')
+        config.vm.network :private_network, ip: '0.0.0.0', auto_network: true
       else
         warn "The recommeded plugin 'vagrant-auto_network' is currently not installed. You can install it by executing: 'vagrant plugin install vagrant-auto_network'"
       end
 
       # Configure hostmanager
-      if Vagrant.has_plugin?("vagrant-hostmanager")
+      if Vagrant.has_plugin?('vagrant-hostmanager')
         config.hostmanager.enabled = true
         config.hostmanager.manage_host = true
         config.hostmanager.ignore_private_ip = false
@@ -68,5 +66,4 @@ Vagrant.configure(2) do |config|
       end
     end
   end
-
 end
