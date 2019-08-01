@@ -1,10 +1,26 @@
-![unmaintained](http://img.shields.io/badge/status-unmaintained-red.png)
+![active](http://img.shields.io/badge/status-active-green.png)
 
 # modern.IE VMs with Vagrant and Virtual Box
+
+## Prerequisites
+
+### VirtualBox
+
+```
+brew cask install virtualbox
+```
+
+### Vagrant
+
+```
+brew cask install vagrant
+```
+
 ## How to use
 
 ### Start the VMs
-Once downloaded, you can start any version of IE you'd like with just a simple command:
+
+You can start any version of IE you'd like with just a simple command:
 
 ```sh
 $ vagrant up edge # or ie8, ie9, ie10, ie11, edge
