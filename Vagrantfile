@@ -5,65 +5,44 @@
 Vagrant.require_version '>= 1.8.0'
 
 Vagrant.configure(2) do |config|
+  if Vagrant.has_plugin?('vagrant-vbguest')
+    config.vbguest.auto_update = true
+  else
+    raise("Install vagrant plugin 'vagrant-vbguest' before continuing.")
+  end
+
+  config.trigger.before :up do |trigger|
+    trigger.run = { path: 'add_box.sh', args: ARGV[1] }
+  end
+
+  config.ssh.username = 'IEUser'
+  config.ssh.password = 'Passw0rd!'
+  config.ssh.insert_key = false
+
   boxes = [
-    {
-      name: 'ie8',
-      box: 'modernIE/w7-ie8'
-    },
-    {
-      name: 'ie9',
-      box: 'modernIE/w7-ie9'
-    },
-    {
-      name: 'ie10',
-      box: 'modernIE/w8-ie10'
-    },
-    {
-      name: 'ie11',
-      box: 'modernIE/w8.1-ie11'
-    },
-    {
-      name: 'edge',
-      box: 'modernIE/w10-edge'
-    }
+    'ie11-win7',
+    'ie11-win81',
+    'msedge-win10'
   ]
 
   # Configure VM's
-  boxes.each do |opts|
-    config.vm.define opts[:name], autostart: false do |config|
+  boxes.each do |box|
+    config.vm.define box, autostart: false do |config|
       # Set hostname
-      config.vm.hostname = opts[:name]
+      config.vm.hostname = box
 
       # Set box
-      config.vm.box = opts[:box]
+      config.vm.box = box
 
-      # Set virtualbox settings
+      # Set VirtualBox settings
       config.vm.provider 'virtualbox' do |v|
         v.customize ['modifyvm', :id, '--memory', 2048]
         v.customize ['modifyvm', :id, '--cpus', 2]
         v.gui = true
-        v.linked_clone = true
       end
 
       # Disable shared folder
       config.vm.synced_folder '.', '/vagrant', disabled: true
-
-      # Add private network
-      if Vagrant.has_plugin?('vagrant-auto_network')
-        config.vm.network :private_network, ip: '0.0.0.0', auto_network: true
-      else
-        warn "The recommeded plugin 'vagrant-auto_network' is currently not installed. You can install it by executing: 'vagrant plugin install vagrant-auto_network'"
-      end
-
-      # Configure hostmanager
-      if Vagrant.has_plugin?('vagrant-hostmanager')
-        config.hostmanager.enabled = true
-        config.hostmanager.manage_host = true
-        config.hostmanager.ignore_private_ip = false
-        config.hostmanager.include_offline = false
-      else
-        warn "The recommeded plugin 'vagrant-hostmanager' is currently not installed. You can install it by executing: 'vagrant plugin install vagrant-hostmanager'"
-      end
     end
   end
 end
