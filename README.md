@@ -16,6 +16,10 @@ brew cask install virtualbox
 brew cask install vagrant
 ```
 
+```
+vagrant plugin install vagrant-vbguest
+```
+
 ## How to use
 
 ### Start the VMs
