@@ -24,6 +24,7 @@ node_modules
 # Vagrant
 .vagrant
 .bundle
+boxes/
 
 # Composer
 /composer.phar
